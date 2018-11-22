@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Brain } from '../models/brain.model';
+import { Sidebar } from '../models/sidebar.model';
 
 export const TOGGLE_SIDEBAR = '[SIDEBAR] Toggle';
 

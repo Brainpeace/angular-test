@@ -1,5 +1,6 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [opened]="sidebarState ? false : true" [mode]="mobileQuery.matches ? 'over' : 'side'">
+  <mat-sidenav #sidenav [opened]="mobileQuery.matches ? false : true" [mode]="mobileQuery.matches ? 'over' : 'side'"
+    (openedChange)="sidebarOpenedChange($event)">
     <h3>Customize your experience</h3>
     <ul>
       <li>
@@ -19,7 +20,7 @@
       <h2>Because zombies are (almost) people too</h2>
     </div>
 
-    <button mat-raised-button (click)="toggleSidebar(!sidebarState ? true : false)" *ngIf="mobileQuery.matches">Toggle drawer</button>
+    <button mat-raised-button (click)="sidenav.toggle()" *ngIf="mobileQuery.matches">Toggle drawer</button>
 
     <button mat-raised-button (click)="addBrain()">+ Add new brain</button>
 

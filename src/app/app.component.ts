@@ -38,9 +38,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   brains: Observable<Brain[]>;
   sidebarState: Observable<Sidebar>;
+  sidebarOpen: boolean;
 
   constructor(private store: Store<AppState>, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.brains = store.select('brainStore');
+    this.sidebarState = store.select('sidebarStore');
+    //this.sidebarOpen = store.select(state => state);
+
+    this.sidebarState.subscribe((data: Sidebar) => {
+      if (data) {
+        this.sidebarOpen = data.open;
+      }
+    });
 
     this.mobileQuery = media.matchMedia('(max-width: 800px)');
     this.desktopQuery = media.matchMedia('(min-width: 1300px)');
@@ -60,21 +69,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  sidebarOpenedChange(event: boolean) {
+    this.store.dispatch(new SidebarActions.ToggleSidebar(event));
+  }
+
   addBrain() {
     this.store.dispatch(new BrainActions.AddBrain(this.singleBrain));
   }
 
   removeBrain(index) {
     this.store.dispatch(new BrainActions.RemoveBrain(index));
-  }
-
-  toggleSidebar() {
-    if (this.sidebarState === true) {
-      this.store.dispatch(new SidebarActions.ToggleSidebar(false));
-    } else {
-      this.store.dispatch(new SidebarActions.ToggleSidebar(true));
-    }
-
   }
 
   ngOnDestroy(): void {
