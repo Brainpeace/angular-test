@@ -1,6 +1,6 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [opened]="mobileQuery.matches ? false : true" [mode]="mobileQuery.matches ? 'over' : 'side'">
-    <h2>Here are some links to help you start: </h2>
+  <mat-sidenav #sidenav [opened]="sidebarState ? false : true" [mode]="mobileQuery.matches ? 'over' : 'side'">
+    <h3>Customize your experience</h3>
     <ul>
       <li>
         <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
@@ -15,11 +15,27 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div style="text-align:center">
-      <h1>
-        Welcome to {{ title }}!
-      </h1>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+      <h1>BrainShop</h1>
+      <h2>Because zombies are (almost) people too</h2>
     </div>
-    <button mat-raised-button (click)="sidenav.toggle()" *ngIf="mobileQuery.matches">Toggle drawer</button>
+
+    <button mat-raised-button (click)="toggleSidebar(!sidebarState ? true : false)" *ngIf="mobileQuery.matches">Toggle drawer</button>
+
+    <button mat-raised-button (click)="addBrain()">+ Add new brain</button>
+
+    <mat-grid-list [cols]="desktopQuery.matches ? 3 : 2" rowHeight="2:1" gutterSize="1rem">
+      <mat-grid-tile *ngFor="let brain of brains | async; let i = index">
+        <mat-card>
+          <button mat-button (click)="removeBrain(i)">X</button>
+          <br>
+          <img src="{{brain.imgUrl}}" alt="">
+          <span>
+            <b>{{i}} - {{brain.originalUser}}</b>
+
+            {{brain.description}}
+          </span>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
   </mat-sidenav-content>
 </mat-sidenav-container>
