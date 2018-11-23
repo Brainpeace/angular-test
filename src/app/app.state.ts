@@ -1,4 +1,4 @@
-import { Brain } from './models/brain.model';
+import { Brain } from './store/models/brain.model';
 
 
 export interface AppState {

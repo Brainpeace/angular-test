@@ -1,13 +1,15 @@
-import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { Brain } from './models/brain.model';
-import { Sidebar } from './models/sidebar.model';
+import { Brain } from './store/models/brain.model';
+import { Sidebar } from './store/models/sidebar.model';
 import { AppState } from './app.state';
-import * as BrainActions from './actions/brain.action';
-import * as SidebarActions from './actions/sidebar.action';
+import * as BrainActions from './store/actions/brain.action';
+import * as SidebarActions from './store/actions/sidebar.action';
+import { Router } from '@angular/router';
+import { AuthService } from './auth/auth.service';
+import { MediaQueryService } from './services/media-query.service';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +18,8 @@ import * as SidebarActions from './actions/sidebar.action';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-  public mobileQuery: MediaQueryList;
-  public desktopQuery: MediaQueryList;
+  // public mobileQuery: MediaQueryList;
+  // public desktopQuery: MediaQueryList;
   public sidenav: MatSidenav;
   public items: Array<any> = [
     'item1',
@@ -33,17 +35,23 @@ export class AppComponent implements OnInit, OnDestroy {
     description: '222Lorem ipsum'
   };
 
-  private _mobileQueryListener: () => void;
-  private _desktopQueryListener: () => void;
+  public mobileQuery;
 
   brains: Observable<Brain[]>;
   sidebarState: Observable<Sidebar>;
   sidebarOpen: boolean;
 
-  constructor(private store: Store<AppState>, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    private store: Store<AppState>,
+    public changeDetectorRef: ChangeDetectorRef,
+    // public media: MediaMatcher,
+    // private router: Router,
+    private mediaQueryService: MediaQueryService,
+    private authService: AuthService
+  ) {
     this.brains = store.select('brainStore');
     this.sidebarState = store.select('sidebarStore');
-    //this.sidebarOpen = store.select(state => state);
+    // this.sidebarOpen = store.select(state => state);
 
     this.sidebarState.subscribe((data: Sidebar) => {
       if (data) {
@@ -51,18 +59,29 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.mobileQuery = media.matchMedia('(max-width: 800px)');
+    // this.mobileQuery = this.mediaQueryService.getMobileQuery();
+
+    /*this.mobileQuery = media.matchMedia('(max-width: 800px)');
     this.desktopQuery = media.matchMedia('(min-width: 1300px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this._desktopQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.desktopQuery.addListener(this._mobileQueryListener);
+    this.desktopQuery.addListener(this._mobileQueryListener);*/
 
-    if (this.mobileQuery) {
+    this.mediaQueryService.changeDetectionEmitter.subscribe((data) => {
+      console.log(data);
+      /*this.mediaQueryService._mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mediaQueryService._desktopQueryListener = () => changeDetectorRef.detectChanges();
+
+      this.mobileQuery.addListener(this._mobileQueryListener);
+      this.desktopQuery.addListener(this._mobileQueryListener);*/
+    });
+
+    /*if (this.mediaQueryService.getMobileQuery()) {
       this.store.dispatch(new SidebarActions.ToggleSidebar(false));
     } else {
       this.store.dispatch(new SidebarActions.ToggleSidebar(true));
-    }
+    }*/
   }
 
   ngOnInit() {
@@ -82,7 +101,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
-    this.desktopQuery.removeListener(this._desktopQueryListener);
+    this.mediaQueryService.removeEventListeners();
+    // this.mobileQuery.removeListener(this._mobileQueryListener);
+    // this.desktopQuery.removeListener(this._desktopQueryListener);
+  }
+
+  onLogin() {
+    this.authService.login();
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

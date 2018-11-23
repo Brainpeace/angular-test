@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatListModule } from '@angular/material';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +11,7 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
 }

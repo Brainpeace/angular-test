@@ -1,0 +1,23 @@
+<span>// {{authService.loggedIn}} //</span>
+
+<div style="text-align:center">
+  <h1>BrainShop</h1>
+  <h2>Because zombies are (almost) people too</h2>
+</div>
+
+<button mat-raised-button (click)="addBrain()">+ Add new brain</button>
+
+<mat-grid-list [cols]="desktopQuery.matches ? 3 : 2" rowHeight="2:1" gutterSize="1rem">
+  <mat-grid-tile *ngFor="let brain of brains | async; let i = index">
+    <mat-card>
+      <button mat-button (click)="removeBrain(i)">X</button>
+      <br>
+      <img src="{{brain.imgUrl}}" alt="">
+      <span>
+        <b>{{i}} - {{brain.originalUser}}</b>
+
+        {{brain.description}}
+      </span>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

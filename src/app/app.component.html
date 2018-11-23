@@ -1,42 +1,17 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [opened]="mobileQuery.matches ? false : true" [mode]="mobileQuery.matches ? 'over' : 'side'"
+  <!-- [opened]="mobileQuery.matches ? false : true" -->
+  <!-- [mode]="mobileQuery.matches ? 'over' : 'side'" -->
+  <mat-sidenav #sidenav  
     (openedChange)="sidebarOpenedChange($event)">
     <h3>Customize your experience</h3>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
+    <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="text-align:center">
-      <h1>BrainShop</h1>
-      <h2>Because zombies are (almost) people too</h2>
-    </div>
-
-    <button mat-raised-button (click)="sidenav.toggle()" *ngIf="mobileQuery.matches">Toggle drawer</button>
-
-    <button mat-raised-button (click)="addBrain()">+ Add new brain</button>
-
-    <mat-grid-list [cols]="desktopQuery.matches ? 3 : 2" rowHeight="2:1" gutterSize="1rem">
-      <mat-grid-tile *ngFor="let brain of brains | async; let i = index">
-        <mat-card>
-          <button mat-button (click)="removeBrain(i)">X</button>
-          <br>
-          <img src="{{brain.imgUrl}}" alt="">
-          <span>
-            <b>{{i}} - {{brain.originalUser}}</b>
-
-            {{brain.description}}
-          </span>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <button mat-button (click)="onLogin()">Login</button>
+    <button mat-button (click)="onLogout()">Logout</button>
+    
+    <button mat-raised-button (click)="sidenav.toggle()">Toggle drawer</button>
+<!--  *ngIf="mobileQuery.matches" -->
+    <!-- <router-outlet></router-outlet> -->
   </mat-sidenav-content>
 </mat-sidenav-container>
