@@ -1,3 +1,10 @@
-<p>
-  product works!
-</p>
+<mat-card (click)="goToBrainDetails(id)">
+  <button mat-button *ngIf="authService.isAuthenticated()" (click)="removeBrain(i)">X</button>
+  <br>
+  <img src="{{imgUrl}}" alt="">
+  <span>
+    <b>{{i}} - {{originalUser}}</b>
+
+    {{description}}
+  </span>
+</mat-card>

@@ -1,23 +1,16 @@
-<span>// {{authService.loggedIn}} //</span>
+<!-- <span>// {{authService.loggedIn}} //</span>-->
 
 <div style="text-align:center">
   <h1>BrainShop</h1>
   <h2>Because zombies are (almost) people too</h2>
 </div>
 
-<button mat-raised-button (click)="addBrain()">+ Add new brain</button>
-
+<button mat-raised-button (click)="addBrain()" *ngIf="authService.isAuthenticated()">+ Add new brain</button>
+<!-- 
 <mat-grid-list [cols]="desktopQuery.matches ? 3 : 2" rowHeight="2:1" gutterSize="1rem">
+   -->
+<mat-grid-list [cols]="(isHandset | async) ? 2 : 3" rowHeight="2:1" gutterSize="1rem">
   <mat-grid-tile *ngFor="let brain of brains | async; let i = index">
-    <mat-card>
-      <button mat-button (click)="removeBrain(i)">X</button>
-      <br>
-      <img src="{{brain.imgUrl}}" alt="">
-      <span>
-        <b>{{i}} - {{brain.originalUser}}</b>
-
-        {{brain.description}}
-      </span>
-    </mat-card>
+    <app-product [id]="i" [originalUser]="brain.originalUser" [description]="brain.description" [imgUrl]="brain.imgUrl"></app-product>
   </mat-grid-tile>
 </mat-grid-list>

@@ -17,7 +17,11 @@ import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import { MediaQueryService } from './services/media-query.service';
+import { NewBrainComponent } from './components/new-brain/new-brain.component';
+import { BrainDetailsComponent } from './components/brain-details/brain-details.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { EditBrainComponent } from './components/edit-brain/edit-brain.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { MediaQueryService } from './services/media-query.service';
     SidebarComponent,
     ProductComponent,
     LoginComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    EditBrainComponent,
+    NewBrainComponent,
+    BrainDetailsComponent,
+    SettingsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -48,7 +56,7 @@ import { MediaQueryService } from './services/media-query.service';
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [AuthGuard, AuthService, MediaQueryService],
+  providers: [AuthGuard, AuthService, HttpClient],
   bootstrap: [AppComponent]
 })
 
