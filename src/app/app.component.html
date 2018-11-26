@@ -1,17 +1,18 @@
 <mat-sidenav-container>
-  <!-- [opened]="mobileQuery.matches ? false : true" -->
-  <!-- [mode]="mobileQuery.matches ? 'over' : 'side'" -->
-  <mat-sidenav #sidenav  
+  <mat-sidenav #sidenav [opened]="this.mediaQueryService.mobileQuery.matches ? false : true" [mode]="this.mediaQueryService.mobileQuery.matches ? 'over' : 'side'"
     (openedChange)="sidebarOpenedChange($event)">
     <h3>Customize your experience</h3>
     <app-sidebar></app-sidebar>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <button mat-button (click)="onLogin()">Login</button>
     <button mat-button (click)="onLogout()">Logout</button>
-    
-    <button mat-raised-button (click)="sidenav.toggle()">Toggle drawer</button>
-<!--  *ngIf="mobileQuery.matches" -->
+
+    <button mat-raised-button (click)="sidenav.toggle()" *ngIf="mobileQuery">Toggle drawer</button>
+
+    {{this.mediaQueryService.mobileQuery.matches}}
+    <!--  *ngIf="mobileQuery.matches" -->
     <!-- <router-outlet></router-outlet> -->
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     description: '222Lorem ipsum'
   };
 
-  public mobileQuery;
+  public mobileQuery: any;
 
   brains: Observable<Brain[]>;
   sidebarState: Observable<Sidebar>;
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    public changeDetectorRef: ChangeDetectorRef,
+    // public changeDetectorRef: ChangeDetectorRef,
     // public media: MediaMatcher,
     // private router: Router,
     private mediaQueryService: MediaQueryService,
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    // this.mobileQuery = this.mediaQueryService.getMobileQuery();
+
 
     /*this.mobileQuery = media.matchMedia('(max-width: 800px)');
     this.desktopQuery = media.matchMedia('(min-width: 1300px)');
@@ -68,24 +68,21 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.desktopQuery.addListener(this._mobileQueryListener);*/
 
-    this.mediaQueryService.changeDetectionEmitter.subscribe((data) => {
-      console.log(data);
-      /*this.mediaQueryService._mobileQueryListener = () => changeDetectorRef.detectChanges();
-      this.mediaQueryService._desktopQueryListener = () => changeDetectorRef.detectChanges();
-
-      this.mobileQuery.addListener(this._mobileQueryListener);
-      this.desktopQuery.addListener(this._mobileQueryListener);*/
-    });
+    //console.log(mediaQueryService.mobileQuery);
 
     /*if (this.mediaQueryService.getMobileQuery()) {
       this.store.dispatch(new SidebarActions.ToggleSidebar(false));
     } else {
       this.store.dispatch(new SidebarActions.ToggleSidebar(true));
     }*/
+
+    //this.mediaQueryService.addQueryListener();
   }
 
   ngOnInit() {
-
+    //this.mobileQuery = this.mediaQueryService.mobileQuery;
+    //this.mobileQuery = this.mobileQuery.matches;
+    console.log(this.mediaQueryService.mobileQuery);
   }
 
   sidebarOpenedChange(event: boolean) {

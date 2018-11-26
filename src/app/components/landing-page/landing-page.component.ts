@@ -11,7 +11,7 @@ export class LandingPageComponent implements OnInit {
   public desktopQuery;
 
   constructor(private mediaQueryService: MediaQueryService, private authService: AuthService) {
-    this.desktopQuery = mediaQueryService.getDesktopQuery();
+    this.desktopQuery = mediaQueryService.desktopQuery;
   }
 
   ngOnInit() {
