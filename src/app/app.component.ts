@@ -21,6 +21,33 @@ export class AppComponent implements OnInit {
   public sidebarState: Observable<Sidebar>;
   public sidebarOpen: boolean;
 
+  public quotes = [
+    {
+      text: '1 testsetset',
+      peep: 'asdasda asdasdasd 1'
+    },
+    {
+      text: '2 testsetset',
+      peep: 'asdasda asdasdasd 2'
+    },
+    {
+      text: '3 testsetset',
+      peep: 'asdasda asdasdasd 3'
+    },
+    {
+      text: '3 testsetset',
+      peep: 'asdasda asdasdasd 3'
+    },
+    {
+      text: '3 testsetset',
+      peep: 'asdasda asdasdasd 3'
+    }
+  ];
+
+  public now = new Date();
+  public day = this.now.getDay();
+  public monthDay = this.now.getDate();
+
   constructor(
     private store: Store<AppState>,
     private breakpointObserver: BreakpointObserver
@@ -38,7 +65,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
+    console.log(this.monthDay, this.quotes[this.day]);
   }
 
   sidebarOpenedChange(event: boolean) {
