@@ -9,7 +9,7 @@
 </mat-list>
 
 
-<button mat-button (click)="onLogin()" *ngIf="!authService.isAuthenticated()">Login</button>
-<button mat-button (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</button>
+<button mat-raised-button color="accent" (click)="onLogin()" *ngIf="!authService.isAuthenticated()">Login</button>
+<button mat-raised-button color="accent" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</button>
 
 <a href="/settings">SETTINGS</a>

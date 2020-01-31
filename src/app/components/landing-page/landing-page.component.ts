@@ -14,7 +14,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(result => result.matches));
+  public isHandset: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
   public singleBrain: Brain = {
     originalUser: 'Jane Doe',
@@ -32,9 +34,7 @@ export class LandingPageComponent implements OnInit {
     this.brains = store.select('brainStore');
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   addBrain(): void {
     this.store.dispatch(new BrainActions.AddBrain(this.singleBrain));

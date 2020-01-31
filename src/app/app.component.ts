@@ -1,22 +1,21 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
-
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Sidebar } from './store/models/sidebar.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppState } from './app.state';
 import * as SidebarActions from './store/actions/sidebar.action';
-import { AuthService } from './auth/auth.service';
+import { Sidebar } from './store/models/sidebar.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent implements OnInit {
-  public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(result => result.matches));
+  public isHandset: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
   public sidebarState: Observable<Sidebar>;
   public sidebarOpen: boolean;
@@ -48,10 +47,7 @@ export class AppComponent implements OnInit {
   public day = this.now.getDay();
   public monthDay = this.now.getDate();
 
-  constructor(
-    private store: Store<AppState>,
-    private breakpointObserver: BreakpointObserver
-  ) {
+  constructor(private store: Store<AppState>, private breakpointObserver: BreakpointObserver) {
     this.sidebarState = store.select('sidebarStore');
     this.sidebarState.subscribe((data: Sidebar) => {
       if (data) {
@@ -59,13 +55,12 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.isHandset.subscribe((isHandset) => {
+    this.isHandset.subscribe(isHandset => {
       this.store.dispatch(new SidebarActions.ToggleSidebar(!isHandset));
     });
   }
 
   ngOnInit() {
-    
     console.log(this.monthDay, this.quotes[this.day]);
   }
 

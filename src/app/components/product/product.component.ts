@@ -20,11 +20,9 @@ export class ProductComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private store: Store<AppState>
-  ) { }
+  ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   goToBrainDetails(id) {
     this.router.navigate(['/brain-details/' + id]);

@@ -1,3 +1,3 @@
 export interface Sidebar {
-    open: boolean;
+  open: boolean;
 }

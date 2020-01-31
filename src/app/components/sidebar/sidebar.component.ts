@@ -8,12 +8,9 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   onLogin() {
     this.authService.login();
@@ -22,5 +19,4 @@ export class SidebarComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
-
 }
